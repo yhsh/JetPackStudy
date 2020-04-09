@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">JetPack学习</string>
+    <string name="teamA">团队A</string>
+    <string name="teamB">团队B</string>
+    <string name="addTwo">增加2</string>
+    <string name="addOne">增加1</string>
+    <string name="show_number">显示的数量</string>
+</resources>

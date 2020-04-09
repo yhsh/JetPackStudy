@@ -1,0 +1,33 @@
+package com.xiayiye.jetpackstudy
+
+import android.content.Intent
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.xiayiye.jetpackstudy.basketball.BasketballActivity
+import com.xiayiye.jetpackstudy.databinding.DataBindingActivity
+import com.xiayiye.jetpackstudy.livedata.LiveDataActivity
+import com.xiayiye.jetpackstudy.viewmodel.ViewModelActivity
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        lvStudy.setOnItemClickListener { adapterView, view, position, args -> jumpPage(position) }
+    }
+
+    private fun jumpPage(position: Int) {
+        when (position) {
+            0 -> goToPage(ViewModelActivity::class.java)
+            1 -> goToPage(LiveDataActivity::class.java)
+            2 -> goToPage(DataBindingActivity::class.java)
+            3 -> goToPage(BasketballActivity::class.java)
+        }
+    }
+
+    // * 表示所有
+    private fun goToPage(clazz: Class<*>) {
+        startActivity(Intent(this, clazz))
+    }
+}

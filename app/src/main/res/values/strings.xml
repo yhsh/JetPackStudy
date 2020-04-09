@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">JetPackStudy</string>
+    <string name="show_number">showNumber</string>
+    <string name="addOne">addOne</string>
+    <string name="addTwo">addTwo</string>
+    <string name="teamA">Team A</string>
+    <string name="teamB">Team B</string>
+    <string name="ScoreA" translatable="false">0</string>
+    <string name="scoreB" translatable="false">0</string>
+    <string name="Button1" translatable="false">+1</string>
+    <string name="Button2" translatable="false">+2</string>
+    <string name="Button3" translatable="false">+3</string>
+    <string-array name="study">
+        <item>ViewModel学习</item>
+        <item>LiveData学习</item>
+        <item>DataBinding学习</item>
+        <item>综合案例(篮球计分器)</item>
+    </string-array>
+</resources>
