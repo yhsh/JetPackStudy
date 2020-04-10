@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.xiayiye.jetpackstudy.R
@@ -25,8 +26,18 @@ class HomeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        btGoDetail.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_detailFragment))
+//        btGoDetail.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_detailFragment))
         //方法二
-//        btGoDetail.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.detailFragment))
+        btGoDetail.setOnClickListener {
+            val args = etInputArgs.text.toString().trim()
+            if (args.isNotEmpty()) {
+                val bundle = Bundle()
+                bundle.putString("name", args)
+                //传递参数的方法
+                Navigation.findNavController(it).navigate(R.id.detailFragment, bundle)
+            } else {
+                Toast.makeText(activity, "参数不能为空", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

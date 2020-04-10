@@ -12,6 +12,7 @@
     <string name="Button3" translatable="false">+3</string>
     <string name="go_detail">go detail</string>
     <string name="go_index">go index</string>
+    <string name="input_args">please input args</string>
     <string-array name="study">
         <item>ViewModel学习</item>
         <item>LiveData学习</item>

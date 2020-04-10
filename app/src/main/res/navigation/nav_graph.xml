@@ -22,5 +22,10 @@
         <action
             android:id="@+id/action_detailFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <!--下面是设置的默认参数-->
+        <argument
+            android:name="name"
+            android:defaultValue="xiayiye5"
+            app:argType="string" />
     </fragment>
 </navigation>

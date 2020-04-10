@@ -26,6 +26,9 @@ class DetailFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        //拿到上页传来的参数信息进行显示
+        val name = arguments?.getString("name")
+        tvShowResultArgs.text = name
         btGoIndex.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.action_detailFragment_to_homeFragment)
             //或者下面写法也可以
