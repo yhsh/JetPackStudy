@@ -10,6 +10,8 @@
     <string name="Button1" translatable="false">+1</string>
     <string name="Button2" translatable="false">+2</string>
     <string name="Button3" translatable="false">+3</string>
+    <string name="go_detail">go detail</string>
+    <string name="go_index">go index</string>
     <string-array name="study">
         <item>ViewModel学习</item>
         <item>LiveData学习</item>
@@ -17,5 +19,6 @@
         <item>综合案例(篮球计分器)</item>
         <item>SaveStateModel学习</item>
         <item>SaveStateModel学习Java版</item>
+        <item>导航组件Navigation-学习</item>
     </string-array>
 </resources>

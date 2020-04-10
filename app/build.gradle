@@ -41,5 +41,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     //增加lifecycle的所有扩展包
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    //使用Navigation需要用到的库
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.1'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.2.1'
 
 }

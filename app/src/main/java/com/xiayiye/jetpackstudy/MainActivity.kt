@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.xiayiye.jetpackstudy.basketball.BasketballActivity
 import com.xiayiye.jetpackstudy.databinding.DataBindingActivity
 import com.xiayiye.jetpackstudy.livedata.LiveDataActivity
+import com.xiayiye.jetpackstudy.navigation.NavigationActivity
 import com.xiayiye.jetpackstudy.savestate.SaveStateActivity
 import com.xiayiye.jetpackstudy.savestatejava.SaveStateJavaActivity
 import com.xiayiye.jetpackstudy.viewmodel.ViewModelActivity
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
             3 -> goToPage(BasketballActivity::class.java)
             4 -> goToPage(SaveStateActivity::class.java)
             5 -> goToPage(SaveStateJavaActivity::class.java)
+            6 -> goToPage(NavigationActivity::class.java)
         }
     }
 

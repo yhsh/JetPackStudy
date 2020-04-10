@@ -6,4 +6,6 @@
     <string name="addTwo">增加2</string>
     <string name="addOne">增加1</string>
     <string name="show_number">显示的数量</string>
+    <string name="go_detail">跳转详情页面</string>
+    <string name="go_index">跳转首页</string>
 </resources>
