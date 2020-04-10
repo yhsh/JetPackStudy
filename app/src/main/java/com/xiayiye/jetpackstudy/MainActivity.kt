@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.xiayiye.jetpackstudy.basketball.BasketballActivity
 import com.xiayiye.jetpackstudy.databinding.DataBindingActivity
 import com.xiayiye.jetpackstudy.livedata.LiveDataActivity
+import com.xiayiye.jetpackstudy.savestate.SaveStateActivity
+import com.xiayiye.jetpackstudy.savestatejava.SaveStateJavaActivity
 import com.xiayiye.jetpackstudy.viewmodel.ViewModelActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -23,6 +25,8 @@ class MainActivity : AppCompatActivity() {
             1 -> goToPage(LiveDataActivity::class.java)
             2 -> goToPage(DataBindingActivity::class.java)
             3 -> goToPage(BasketballActivity::class.java)
+            4 -> goToPage(SaveStateActivity::class.java)
+            5 -> goToPage(SaveStateJavaActivity::class.java)
         }
     }
 

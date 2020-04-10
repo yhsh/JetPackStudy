@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".basketball.BasketballActivity"></activity>
+        <activity android:name=".savestate.SaveStateActivity"></activity>
+        <activity android:name=".basketball.BasketballActivity" />
         <activity android:name=".livedata.LiveDataActivity" />
         <activity android:name=".viewmodel.ViewModelActivity" />
         <activity android:name=".MainActivity">
@@ -20,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".databinding.DataBindingActivity" />
+        <activity android:name=".savestatejava.SaveStateJavaActivity" />
     </application>
 
 </manifest>
