@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_view_model_graph"
+    app:startDestination="@id/masterFragment">
+
+    <fragment
+        android:id="@+id/masterFragment"
+        android:name="com.xiayiye.jetpackstudy.navigation.viewmodel.MasterFragment"
+        android:label="master页面"
+        tools:layout="@layout/fragment_master">
+        <action
+            android:id="@+id/action_masterFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.xiayiye.jetpackstudy.navigation.viewmodel.DetailsFragment"
+        android:label="进入的页面"
+        tools:layout="@layout/fragment_details">
+        <action
+            android:id="@+id/action_detailsFragment_to_masterFragment"
+            app:destination="@id/masterFragment" />
+    </fragment>
+</navigation>

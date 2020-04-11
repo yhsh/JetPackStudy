@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
+            app:destination="@id/detailFragment"
+            app:enterAnim="@anim/rotate_scale"
+            app:exitAnim="@anim/slide_to_right" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"

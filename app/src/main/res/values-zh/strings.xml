@@ -9,4 +9,5 @@
     <string name="go_detail">跳转详情页面</string>
     <string name="go_index">跳转首页</string>
     <string name="input_args">请输入参数信息</string>
+    <string name="enter_step">进入</string>
 </resources>

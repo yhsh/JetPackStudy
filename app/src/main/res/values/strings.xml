@@ -13,6 +13,7 @@
     <string name="go_detail">go detail</string>
     <string name="go_index">go index</string>
     <string name="input_args">please input args</string>
+    <string name="enter_step">enter step</string>
     <string-array name="study">
         <item>ViewModel学习</item>
         <item>LiveData学习</item>
@@ -21,5 +22,6 @@
         <item>SaveStateModel学习</item>
         <item>SaveStateModel学习Java版</item>
         <item>导航组件Navigation-学习</item>
+        <item>导航组件Navigation-ViewModel学习</item>
     </string-array>
 </resources>
