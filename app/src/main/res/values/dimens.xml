@@ -6,4 +6,6 @@
     <dimen name="buttonSpace">10dp</dimen>
     <dimen name="buttonHeightLand">40dp</dimen>
     <dimen name="lastButtonHeight">40dp</dimen>
+    <dimen name="big_font">40sp</dimen>
+    <dimen name="mid_font">30sp</dimen>
 </resources>

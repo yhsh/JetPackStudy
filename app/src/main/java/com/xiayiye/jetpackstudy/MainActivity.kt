@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.xiayiye.jetpackstudy.basketball.BasketballActivity
+import com.xiayiye.jetpackstudy.calculation.CalculationHomeActivity
 import com.xiayiye.jetpackstudy.databinding.DataBindingActivity
 import com.xiayiye.jetpackstudy.livedata.LiveDataActivity
 import com.xiayiye.jetpackstudy.navigation.NavigationActivity
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
             5 -> goToPage(SaveStateJavaActivity::class.java)
             6 -> goToPage(NavigationActivity::class.java)
             7 -> goToPage(NavigationViewModelActivity::class.java)
+            8 -> goToPage(CalculationHomeActivity::class.java)
         }
     }
 

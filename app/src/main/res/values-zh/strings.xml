@@ -10,4 +10,18 @@
     <string name="go_index">跳转首页</string>
     <string name="input_args">请输入参数信息</string>
     <string name="enter_step">进入</string>
+    <string name="calculation_test">当前分数:%d</string>
+    <string name="start_calculation">开始计算</string>
+    <string name="high_score">最高记录:%d</string>
+    <string name="you_lose">挑战失败！</string>
+    <string name="you_win">挑战成功！</string>
+    <string name="lose_score_message">你的得分:%d</string>
+    <string name="win_score_message">新记录:%d</string>
+    <string name="back_to_title">返回首页</string>
+    <string name="you_answer">你的答案:%d</string>
+    <string name="answer_correct_message">答题正确,请继续！</string>
+    <string name="ok_back">确认</string>
+    <string name="cancel_back">取消</string>
+    <string name="tip">提示</string>
+    <string name="sure_exit">你确认退出？</string>
 </resources>

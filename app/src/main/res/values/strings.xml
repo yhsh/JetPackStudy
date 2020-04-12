@@ -14,14 +14,44 @@
     <string name="go_index">go index</string>
     <string name="input_args">please input args</string>
     <string name="enter_step">enter step</string>
+    <string name="calculation_test">Calculation Test:%d</string>
+    <string name="start_calculation">Start Calculation</string>
+    <string name="high_score">High Score:%d</string>
+    <string name="calculation_result" translatable="false">\?</string>
+    <string name="calculation_equals" translatable="false">=</string>
+    <string name="calculation_one" translatable="false">1</string>
+    <string name="calculation_two" translatable="false">2</string>
+    <string name="calculation_three" translatable="false">3</string>
+    <string name="calculation_four" translatable="false">4</string>
+    <string name="calculation_six" translatable="false">6</string>
+    <string name="calculation_five" translatable="false">5</string>
+    <string name="calculation_seven" translatable="false">7</string>
+    <string name="calculation_eight" translatable="false">8</string>
+    <string name="calculation_nine" translatable="false">9</string>
+    <string name="calculation_clear" translatable="false">C</string>
+    <string name="calculation_zero" translatable="false">0</string>
+    <string name="calculation_plus" translatable="false">+</string>
+    <string name="you_lose">You Lose !</string>
+    <string name="you_win">You Win !</string>
+    <string name="lose_score_message">You Score:%d</string>
+    <string name="win_score_message">New Record:%d</string>
+    <string name="back_to_title">Back</string>
+    <string name="you_answer">You Answer:%d</string>
+    <string name="answer_correct_message">Answer Correct Message</string>
+    <string name="ok_back">OK Back</string>
+    <string name="cancel_back">Cancel Back</string>
+    <string name="tip">tip</string>
+    <string name="sure_exit">Are You Sure Exit?</string>
+
     <string-array name="study">
         <item>ViewModel学习</item>
         <item>LiveData学习</item>
         <item>DataBinding学习</item>
-        <item>综合案例(篮球计分器)</item>
+        <item>综合案例《篮球计分器》</item>
         <item>SaveStateModel学习</item>
         <item>SaveStateModel学习Java版</item>
         <item>导航组件Navigation-学习</item>
         <item>导航组件Navigation-ViewModel学习</item>
+        <item>综合案例《口袋计算App》</item>
     </string-array>
 </resources>
