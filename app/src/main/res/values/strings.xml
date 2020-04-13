@@ -53,5 +53,6 @@
         <item>导航组件Navigation-学习</item>
         <item>导航组件Navigation-ViewModel学习</item>
         <item>综合案例《口袋计算App》</item>
+        <item><font color="red">Lifecycle计时器</font></item>
     </string-array>
 </resources>
