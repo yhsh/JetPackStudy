@@ -83,6 +83,9 @@ class QuestionFragment : Fragment(), View.OnClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         view?.findViewById<Button>(R.id.button24)?.setOnClickListener {
+            if (sb.isEmpty()) {
+                sb.append("-1")
+            }
             if (sb.toString().toInt() == calculationViewModel.getAnswer.value) {
                 //如果答案相同,继续答题
                 calculationViewModel.answerCorrect()

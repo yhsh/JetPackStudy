@@ -38,6 +38,9 @@ class CalculationHomeActivity : AppCompatActivity() {
                     //关闭当前fragment
                     navController.navigateUp()
                 }.setNegativeButton(getString(R.string.cancel_back), null).show()
+        } else if (navController.currentDestination?.id == R.id.titleFragment) {
+            //解决回到首页点击返回键无效的bug
+            finish()
         } else {
             //其它页面直接返回首页
             navController.navigate(R.id.titleFragment)
