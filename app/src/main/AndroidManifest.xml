@@ -26,6 +26,7 @@
         <activity android:name=".navigation.viewmodel.NavigationViewModelActivity" />
         <activity android:name=".calculation.CalculationHomeActivity" />
         <activity android:name=".lifecycle.LifecycleTimeActivity" />
+        <activity android:name=".bottomnavigation.BottomNavigationActivity" />
     </application>
 
 </manifest>

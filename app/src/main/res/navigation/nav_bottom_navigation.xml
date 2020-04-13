@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_bottom_navigation"
+    app:startDestination="@id/firstFragment">
+
+    <fragment
+        android:id="@+id/firstFragment"
+        android:name="com.xiayiye.jetpackstudy.bottomnavigation.FirstFragment"
+        android:label="旋转"
+        tools:layout="@layout/first_fragment" />
+    <fragment
+        android:id="@+id/twoFragment"
+        android:name="com.xiayiye.jetpackstudy.bottomnavigation.TwoFragment"
+        android:label="缩放"
+        tools:layout="@layout/two_fragment" />
+    <fragment
+        android:id="@+id/threeFragment"
+        android:name="com.xiayiye.jetpackstudy.bottomnavigation.ThreeFragment"
+        android:label="平移"
+        tools:layout="@layout/three_fragment" />
+</navigation>

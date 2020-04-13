@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/firstFragment"
+        android:icon="@drawable/ic_looks_one_black_50dp"
+        android:title="@string/rotate" />
+    <item
+        android:id="@+id/twoFragment"
+        android:icon="@drawable/ic_looks_two_black_50dp"
+        android:title="@string/scale" />
+    <item
+        android:id="@+id/threeFragment"
+        android:icon="@drawable/ic_looks_three_black_50dp"
+        android:title="@string/translate" />
+</menu>

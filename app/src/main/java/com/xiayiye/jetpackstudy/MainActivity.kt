@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.xiayiye.jetpackstudy.basketball.BasketballActivity
+import com.xiayiye.jetpackstudy.bottomnavigation.BottomNavigationActivity
 import com.xiayiye.jetpackstudy.calculation.CalculationHomeActivity
 import com.xiayiye.jetpackstudy.databinding.DataBindingActivity
 import com.xiayiye.jetpackstudy.lifecycle.LifecycleTimeActivity
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
             7 -> goToPage(NavigationViewModelActivity::class.java)
             8 -> goToPage(CalculationHomeActivity::class.java)
             9 -> goToPage(LifecycleTimeActivity::class.java)
+            10 -> goToPage(BottomNavigationActivity::class.java)
         }
     }
 

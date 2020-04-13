@@ -24,4 +24,7 @@
     <string name="cancel_back">取消</string>
     <string name="tip">提示</string>
     <string name="sure_exit">你确认退出？</string>
+    <string name="rotate">旋转</string>
+    <string name="scale">缩放</string>
+    <string name="translate">平移</string>
 </resources>
