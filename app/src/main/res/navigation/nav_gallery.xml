@@ -13,10 +13,20 @@
         <action
             android:id="@+id/action_galleryFragment_to_photoFragment"
             app:destination="@id/photoFragment" />
+        <action
+            android:id="@+id/action_galleryFragment_to_viewPager2ImageFragment"
+            app:destination="@id/viewPager2ImageFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/photoFragment"
         android:name="com.xiayiye.jetpackstudy.gallery.PhotoFragment"
         android:label="大图预览"
         tools:layout="@layout/fragment_photo" />
+
+    <fragment
+        android:id="@+id/viewPager2ImageFragment"
+        android:name="com.xiayiye.jetpackstudy.gallery.ViewPager2ImageFragment"
+        android:label="轮播大图浏览"
+        tools:layout="@layout/fragment_view_pager2_image" />
 </navigation>

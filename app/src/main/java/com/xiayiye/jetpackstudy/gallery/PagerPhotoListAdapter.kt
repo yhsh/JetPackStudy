@@ -1,13 +1,14 @@
 package com.xiayiye.jetpackstudy.gallery
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.toolbox.StringRequest
-import com.google.gson.Gson
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.xiayiye.jetpackstudy.R
+import kotlinx.android.synthetic.main.pager_photo_view.view.*
 
 /*
  * Copyright (c) 2020, smuyyh@gmail.com All Rights Reserved.
@@ -38,7 +39,7 @@ import com.google.gson.Gson
 
 /**
  * @author 下一页5（轻飞扬）
- * 创建时间：2020/4/14 15:25
+ * 创建时间：2020/4/14 21:31
  * 个人小站：http://yhsh.wap.ai(已挂)
  * 最新小站：http://www.iyhsh.icoc.in
  * 联系作者：企鹅 13343401268
@@ -47,25 +48,32 @@ import com.google.gson.Gson
  * 文件包名：com.xiayiye.jetpackstudy.gallery
  * 文件说明：
  */
-class GalleryViewModel(application: Application) : AndroidViewModel(application) {
-    private val _photoListView = MutableLiveData<List<PhotoItem>>()
-    val photoListView: LiveData<List<PhotoItem>> get() = _photoListView
-    fun fetchData() {
-        val stringRequest = StringRequest(Request.Method.GET, getUrl(), Response.Listener {
-            _photoListView.value = Gson().fromJson(it, GalleryBean::class.java).hits
-        },
-            Response.ErrorListener { println(it.printStackTrace()) })
-        //添加到请求队列中
-        VolleySingleton.getInstance(getApplication()).requestQueue.add(stringRequest)
+class PagerPhotoListAdapter :
+    ListAdapter<PhotoItem, PagerPhotoListAdapter.PagerPhotoViewHolder>(Different) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerPhotoViewHolder {
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.pager_photo_view, parent, false)
+        return PagerPhotoViewHolder(view)
     }
 
-    private fun getUrl(): String {
-        return "https://pixabay.com/api/?key=16032344-bb89de8b100a3e01939c38139&q=${keywords.random()}&per_page=100"
+    override fun onBindViewHolder(holder: PagerPhotoViewHolder, position: Int) {
+        Glide.with(holder.itemView.context).load(getItem(position).largeImageURL)
+            .placeholder(R.drawable.ic_photo_actual)
+            .into(holder.itemView.ivPagerView)
     }
 
-    private val keywords = arrayOf(
-        "lotus", "car", "husky", "cat", "dog", "pet", "cloud", "fruit", "grape", "banana", "bamboo",
-        "flower", "sky", "sea", "desert", "mountain", "Great Wall", "Alaskan", "Himalaya", "earth",
-        "moon", "Racing Girl", "auto show", "breast model", "pleura", "leg model", "model"
-    )
+    object Different : DiffUtil.ItemCallback<PhotoItem>() {
+        override fun areItemsTheSame(oldItem: PhotoItem, newItem: PhotoItem): Boolean {
+            return oldItem === newItem
+        }
+
+        override fun areContentsTheSame(oldItem: PhotoItem, newItem: PhotoItem): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+    }
+
+    class PagerPhotoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    }
 }

@@ -16,6 +16,8 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.xiayiye.jetpackstudy.R
 import kotlinx.android.synthetic.main.gallery_cell.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 /*
  * Copyright (c) 2020, smuyyh@gmail.com All Rights Reserved.
@@ -66,12 +68,22 @@ class GalleryAdapter : ListAdapter<PhotoItem, GalleryAdapter.MyViewHolder>(Diffe
 //        myViewHolder.itemView.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_galleryFragment_to_photoFragment))
         //带参数传递
         myViewHolder.itemView.setOnClickListener {
+            val jumpPage: Int
             Bundle().apply {
                 //防止角标为-1导致奔溃的情况
                 if (myViewHolder.adapterPosition >= 0) {
-                    putParcelable("photo", getItem(myViewHolder.adapterPosition))
+                    if (Random().nextBoolean()) {
+                        jumpPage = R.id.action_galleryFragment_to_photoFragment
+                        putParcelable("photo", getItem(myViewHolder.adapterPosition))
+                    } else {
+                        //将整个数据列表传递过去
+                        putParcelableArrayList("photo_list", ArrayList(currentList))
+                        //当前点击的位置传递过去
+                        putInt("photo_position", myViewHolder.adapterPosition)
+                        jumpPage = R.id.action_galleryFragment_to_viewPager2ImageFragment
+                    }
                     myViewHolder.itemView.findNavController()
-                        .navigate(R.id.action_galleryFragment_to_photoFragment, this)
+                        .navigate(jumpPage, this)
                 }
             }
         }
