@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.xiayiye.jetpackstudy">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -27,6 +29,7 @@
         <activity android:name=".calculation.CalculationHomeActivity" />
         <activity android:name=".lifecycle.LifecycleTimeActivity" />
         <activity android:name=".bottomnavigation.BottomNavigationActivity" />
+        <activity android:name=".gallery.GalleryActivity" />
     </application>
 
 </manifest>

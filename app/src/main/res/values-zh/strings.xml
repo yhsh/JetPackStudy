@@ -27,4 +27,5 @@
     <string name="rotate">旋转</string>
     <string name="scale">缩放</string>
     <string name="translate">平移</string>
+    <string name="refresh_image">刷新图库</string>
 </resources>

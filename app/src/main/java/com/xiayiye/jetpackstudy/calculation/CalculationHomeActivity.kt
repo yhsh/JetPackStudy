@@ -19,13 +19,8 @@ class CalculationHomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calculation_home)
         //增加actionBar和返回按钮的方法
-        navController = Navigation.findNavController(
-            this,
-            R.id.fragment_calculation
-        )
-        setupActionBarWithNavController(
-            navController
-        )
+        navController = Navigation.findNavController(this, R.id.fragment_calculation)
+        setupActionBarWithNavController(navController)
     }
 
     //增加actionBar和返回按钮的方法

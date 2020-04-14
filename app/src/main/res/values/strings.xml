@@ -45,6 +45,7 @@
     <string name="rotate">旋转</string>
     <string name="scale">缩放</string>
     <string name="translate">平移</string>
+    <string name="refresh_image">刷新图库</string>
 
     <string-array name="study">
         <item>ViewModel学习</item>
@@ -58,5 +59,7 @@
         <item>综合案例《口袋计算App》</item>
         <item><font color="red">Lifecycle计时器</font></item>
         <item>NavigationBottom模板</item>
+        <item>综合案例(画廊Kotlin版)</item>
     </string-array>
+
 </resources>
