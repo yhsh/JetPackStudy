@@ -42,10 +42,10 @@
     <string name="cancel_back">Cancel Back</string>
     <string name="tip">tip</string>
     <string name="sure_exit">Are You Sure Exit?</string>
-    <string name="rotate">旋转</string>
-    <string name="scale">缩放</string>
-    <string name="translate">平移</string>
-    <string name="refresh_image">刷新图库</string>
+    <string name="rotate">rotate</string>
+    <string name="scale">scale</string>
+    <string name="translate">translate</string>
+    <string name="refresh_image">Refresh Image</string>
 
     <string-array name="study">
         <item>ViewModel学习</item>
@@ -60,6 +60,10 @@
         <item><font color="red">Lifecycle计时器</font></item>
         <item>NavigationBottom模板</item>
         <item>综合案例(画廊Kotlin版)</item>
+        <item>ViewPager2练习</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

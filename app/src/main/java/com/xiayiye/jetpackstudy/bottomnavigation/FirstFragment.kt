@@ -38,10 +38,7 @@ class FirstFragment : Fragment() {
         ivFirst.setOnClickListener {
             if (!objectAnimator.isRunning) {
                 //正在运行就不开始动画
-                objectAnimator.setFloatValues(
-                    ivFirst.rotation,
-                    ivFirst.rotation + 100
-                )
+                objectAnimator.setFloatValues(ivFirst.rotation, ivFirst.rotation + 100)
                 viewModel.rotationPosition += 100
                 objectAnimator.start()
             }

@@ -30,6 +30,7 @@
         <activity android:name=".lifecycle.LifecycleTimeActivity" />
         <activity android:name=".bottomnavigation.BottomNavigationActivity" />
         <activity android:name=".gallery.GalleryActivity" />
+        <activity android:name=".viewpager2.ViewPager2Activity" />
     </application>
 
 </manifest>
