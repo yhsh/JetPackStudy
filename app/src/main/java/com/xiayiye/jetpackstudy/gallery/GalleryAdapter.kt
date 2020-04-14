@@ -1,11 +1,11 @@
 package com.xiayiye.jetpackstudy.gallery
 
-import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -62,8 +62,19 @@ class GalleryAdapter : ListAdapter<PhotoItem, GalleryAdapter.MyViewHolder>(Diffe
                 R.layout.gallery_cell, parent, false
             )
         )
-        //点击跳转大图浏览
-        myViewHolder.itemView.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_galleryFragment_to_photoFragment))
+        //点击跳转大图浏览,不带参数
+//        myViewHolder.itemView.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_galleryFragment_to_photoFragment))
+        //带参数传递
+        myViewHolder.itemView.setOnClickListener {
+            Bundle().apply {
+                //防止角标为-1导致奔溃的情况
+                if (myViewHolder.adapterPosition >= 0) {
+                    putParcelable("photo", getItem(myViewHolder.adapterPosition))
+                    myViewHolder.itemView.findNavController()
+                        .navigate(R.id.action_galleryFragment_to_photoFragment, this)
+                }
+            }
+        }
         return myViewHolder
     }
 

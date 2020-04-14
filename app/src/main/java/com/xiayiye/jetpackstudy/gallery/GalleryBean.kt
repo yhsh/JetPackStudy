@@ -1,5 +1,8 @@
 package com.xiayiye.jetpackstudy.gallery
 
+import android.os.Parcel
+import android.os.Parcelable
+
 /*
  * Copyright (c) 2020, smuyyh@gmail.com All Rights Reserved.
  * #                                                   #
@@ -38,4 +41,30 @@ package com.xiayiye.jetpackstudy.gallery
  * 文件包名：com.xiayiye.jetpackstudy.gallery
  * 文件说明：
  */
-data class GalleryBean(val hits: List<PhotoItem>, val total: Int, val totalHits: Int)
+data class GalleryBean(val hits: List<PhotoItem>, val total: Int, val totalHits: Int):Parcelable {
+    constructor(parcel: Parcel) : this(
+        TODO("hits"),
+        parcel.readInt(),
+        parcel.readInt()
+    ) {
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(total)
+        parcel.writeInt(totalHits)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<GalleryBean> {
+        override fun createFromParcel(parcel: Parcel): GalleryBean {
+            return GalleryBean(parcel)
+        }
+
+        override fun newArray(size: Int): Array<GalleryBean?> {
+            return arrayOfNulls(size)
+        }
+    }
+}

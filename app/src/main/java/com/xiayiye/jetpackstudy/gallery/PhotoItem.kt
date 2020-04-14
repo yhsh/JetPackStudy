@@ -1,5 +1,8 @@
 package com.xiayiye.jetpackstudy.gallery
 
+import android.os.Parcel
+import android.os.Parcelable
+
 /*
  * Copyright (c) 2020, smuyyh@gmail.com All Rights Reserved.
  * #                                                   #
@@ -38,4 +41,32 @@ package com.xiayiye.jetpackstudy.gallery
  * 文件包名：com.xiayiye.jetpackstudy.gallery
  * 文件说明：
  */
-data class PhotoItem(val id: Int, val largeImageURL: String, val webformatURL: String)
+data class PhotoItem(val id: Int, val largeImageURL: String?, val webformatURL: String?) :
+    Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readInt(),
+        parcel.readString(),
+        parcel.readString()
+    ) {
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(id)
+        parcel.writeString(largeImageURL)
+        parcel.writeString(webformatURL)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<PhotoItem> {
+        override fun createFromParcel(parcel: Parcel): PhotoItem {
+            return PhotoItem(parcel)
+        }
+
+        override fun newArray(size: Int): Array<PhotoItem?> {
+            return arrayOfNulls(size)
+        }
+    }
+}

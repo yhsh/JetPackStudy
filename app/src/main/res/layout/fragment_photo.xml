@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<io.supercharge.shimmerlayout.ShimmerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/shimmerLayoutLargeImage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".gallery.PhotoFragment">
 
-</FrameLayout>
+    <uk.co.senab.photoview.PhotoView
+        android:id="@+id/ivPhotoView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        tools:src="@tools:sample/avatars" />
+</io.supercharge.shimmerlayout.ShimmerLayout>
