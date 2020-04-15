@@ -30,9 +30,12 @@ import kotlinx.coroutines.withContext
 /**
  * 显示轮播大图和保存图片的页面
  */
-const val REQUEST_WRITE_EXTERNAL_STORAGE_CODE = 1000
 
 class ViewPager2ImageFragment : Fragment() {
+    companion object {
+        const val REQUEST_WRITE_EXTERNAL_STORAGE_CODE = 1000
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -58,6 +61,8 @@ class ViewPager2ImageFragment : Fragment() {
         })
         //设置 ViewPager2 的当前页要在设置 ViewPager2 的数据后在设置当前页面,否则不生效
         vp2Banner.setCurrentItem(currentPosition ?: 0, false)
+        //设置纵向滚动的方法
+        vp2Banner.orientation = ViewPager2.ORIENTATION_VERTICAL
         //保存图片的方法
         ivSaveImg.setOnClickListener {
             if (Build.VERSION.SDK_INT < 29 && ContextCompat.checkSelfPermission(

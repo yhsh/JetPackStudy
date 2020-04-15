@@ -47,6 +47,7 @@
     <string name="translate">translate</string>
     <string name="refresh_image">Refresh Image</string>
     <string name="change_layout">Change Layout</string>
+    <string name="loading">loading……</string>
 
     <string-array name="study">
         <item>ViewModel学习</item>

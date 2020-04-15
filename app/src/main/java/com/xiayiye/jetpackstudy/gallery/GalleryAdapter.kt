@@ -9,6 +9,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -58,7 +59,21 @@ import kotlin.collections.ArrayList
  * 文件说明：
  */
 class GalleryAdapter : ListAdapter<PhotoItem, GalleryAdapter.MyViewHolder>(DifferentCallBack) {
+    companion object {
+        const val NORMAL_VIEW_TYPE = 0
+        const val FOOTER_VIEW_TYPE = 1
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        if (viewType == FOOTER_VIEW_TYPE) {
+            //脚布局
+            LayoutInflater.from(parent.context).inflate(R.layout.gallery_footer, parent, false)
+                .also {
+                    //设置进度条占满整个屏幕宽度的方法
+                    (it.layoutParams as StaggeredGridLayoutManager.LayoutParams).isFullSpan = true
+                    return MyViewHolder(it)
+                }
+        }
         val myViewHolder = MyViewHolder(
             LayoutInflater.from(parent.context).inflate(
                 R.layout.gallery_cell, parent, false
@@ -92,15 +107,19 @@ class GalleryAdapter : ListAdapter<PhotoItem, GalleryAdapter.MyViewHolder>(Diffe
 
     object DifferentCallBack : DiffUtil.ItemCallback<PhotoItem>() {
         override fun areItemsTheSame(oldItem: PhotoItem, newItem: PhotoItem): Boolean {
-            return oldItem === newItem
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: PhotoItem, newItem: PhotoItem): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem == newItem
         }
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        if (position == itemCount - 1) {
+            //脚布局不加载下面的数据直接返回
+            return
+        }
         //设置图片高度
         holder.itemView.ivShowGallery.layoutParams.height = getItem(position).webformatHeight
         holder.itemView.tvDescribe.text = getItem(position).user
@@ -144,10 +163,21 @@ class GalleryAdapter : ListAdapter<PhotoItem, GalleryAdapter.MyViewHolder>(Diffe
          }
          holder.itemView.shimmerLayoutCell.also {
 
-         }*/
+         }
+        with(holder.itemView.shimmerLayoutCell){
+            stopShimmerAnimation()
+        }*/
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     }
+
+    /**
+     * 增加脚布局一个item
+     */
+    override fun getItemCount(): Int = super.getItemCount() + 1
+
+    override fun getItemViewType(position: Int): Int =
+        if (position == itemCount - 1) FOOTER_VIEW_TYPE else NORMAL_VIEW_TYPE
 }
