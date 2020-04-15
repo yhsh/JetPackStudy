@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.xiayiye.jetpackstudy.R
 import kotlinx.android.synthetic.main.fragment_gallery.*
@@ -17,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_gallery.*
  */
 class GalleryFragment : Fragment() {
     //切换图片布局的标识
-    private var isLin = false
+    private var isLin = true
     private lateinit var galleryViewModel: GalleryViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +38,7 @@ class GalleryFragment : Fragment() {
             R.id.refreshImage -> {
                 //显示刷新控件
                 swipeLayoutGallery.isRefreshing = true
-                galleryViewModel.fetchData()
+                galleryViewModel.resetQuery()
             }
             //切换布局
             R.id.changeLayout -> {
@@ -72,12 +73,37 @@ class GalleryFragment : Fragment() {
             //     ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
         ).get(GalleryViewModel::class.java)
         galleryViewModel.photoListView.observe(this, Observer {
+            if (galleryViewModel.needToScrollerToTop) {
+                //自动滚动到顶部
+                recyclerViewGallery.scrollToPosition(0)
+                galleryViewModel.needToScrollerToTop = false
+            }
             galleryAdapter.submitList(it)
             //停止刷新控件
             swipeLayoutGallery.isRefreshing = false
         })
-        galleryViewModel.photoListView.value ?: galleryViewModel.fetchData()
         //下拉刷新数据
-        swipeLayoutGallery.setOnRefreshListener { galleryViewModel.fetchData() }
+        swipeLayoutGallery.setOnRefreshListener { galleryViewModel.resetQuery() }
+        //监听滑动事件
+        recyclerViewGallery.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy < 0) return
+                if (isLin) {
+                    //瀑布流布局
+                    val manager = recyclerViewGallery.layoutManager as StaggeredGridLayoutManager
+                    val intArray = IntArray(2)
+                    manager.findLastVisibleItemPositions(intArray)
+                    if (intArray[0] == galleryAdapter.itemCount - 1) {
+                        //证明到底了
+                        galleryViewModel.fetchData()
+                    }
+                }
+            }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+            }
+        })
     }
 }
