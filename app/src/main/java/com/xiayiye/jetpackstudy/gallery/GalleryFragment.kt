@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.xiayiye.jetpackstudy.R
+import com.xiayiye.jetpackstudy.gallery.Constant.Companion.DATA_STATUS_NETWORK_ERROR
+import com.xiayiye.jetpackstudy.gallery.Constant.Companion.FOOT_VIEW_STATUS
 import kotlinx.android.synthetic.main.fragment_gallery.*
 
 /**
@@ -18,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_gallery.*
  */
 class GalleryFragment : Fragment() {
     //切换图片布局的标识
-    private var isLin = true
+    private var isLinearLayout = false
     private lateinit var galleryViewModel: GalleryViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,14 +44,14 @@ class GalleryFragment : Fragment() {
             }
             //切换布局
             R.id.changeLayout -> {
-                if (isLin) {
-                    recyclerViewGallery.layoutManager =
-                        StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-                } else {
+                isLinearLayout = !isLinearLayout
+                if (isLinearLayout) {
                     recyclerViewGallery.layoutManager =
                         LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+                } else {
+                    recyclerViewGallery.layoutManager =
+                        StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
                 }
-                isLin = !isLin
             }
         }
         return super.onOptionsItemSelected(item)
@@ -59,12 +61,6 @@ class GalleryFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         //设置有菜单选项
         setHasOptionsMenu(true)
-        val galleryAdapter = GalleryAdapter()
-        recyclerViewGallery.apply {
-            adapter = galleryAdapter
-            //瀑布流式风格的画廊
-            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        }
         galleryViewModel = ViewModelProvider(
             this,
             //方法一
@@ -72,6 +68,12 @@ class GalleryFragment : Fragment() {
             //方法二
             //     ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
         ).get(GalleryViewModel::class.java)
+        val galleryAdapter = GalleryAdapter(galleryViewModel)
+        recyclerViewGallery.apply {
+            adapter = galleryAdapter
+            //瀑布流式风格的画廊
+            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        }
         galleryViewModel.photoListView.observe(this, Observer {
             if (galleryViewModel.needToScrollerToTop) {
                 //自动滚动到顶部
@@ -82,6 +84,16 @@ class GalleryFragment : Fragment() {
             //停止刷新控件
             swipeLayoutGallery.isRefreshing = false
         })
+        galleryViewModel.dataStatusLive.observe(this, Observer {
+            //记录此时的状态
+            FOOT_VIEW_STATUS = it
+            //告诉最后一个item需要刷新数据
+            galleryAdapter.notifyItemChanged(galleryAdapter.itemCount - 1)
+            if (it == DATA_STATUS_NETWORK_ERROR) {
+                //网络错误,刷新按钮停止
+                swipeLayoutGallery.isRefreshing = false
+            }
+        })
         //下拉刷新数据
         swipeLayoutGallery.setOnRefreshListener { galleryViewModel.resetQuery() }
         //监听滑动事件
@@ -89,13 +101,19 @@ class GalleryFragment : Fragment() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (dy < 0) return
-                if (isLin) {
+                if (!isLinearLayout) {
                     //瀑布流布局
                     val manager = recyclerViewGallery.layoutManager as StaggeredGridLayoutManager
                     val intArray = IntArray(2)
                     manager.findLastVisibleItemPositions(intArray)
                     if (intArray[0] == galleryAdapter.itemCount - 1) {
                         //证明到底了
+                        galleryViewModel.fetchData()
+                    }
+                } else {
+                    val manager = recyclerViewGallery.layoutManager as LinearLayoutManager
+                    if (manager.findLastVisibleItemPosition() == galleryAdapter.itemCount - 1) {
+                        //证明滑动到底部了
                         galleryViewModel.fetchData()
                     }
                 }

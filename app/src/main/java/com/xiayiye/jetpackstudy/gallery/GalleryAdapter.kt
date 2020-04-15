@@ -16,7 +16,12 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.xiayiye.jetpackstudy.R
+import com.xiayiye.jetpackstudy.gallery.Constant.Companion.DATA_STATUS_CAN_LOAD_MORE
+import com.xiayiye.jetpackstudy.gallery.Constant.Companion.DATA_STATUS_NETWORK_ERROR
+import com.xiayiye.jetpackstudy.gallery.Constant.Companion.DATA_STATUS_NO_MORE
+import com.xiayiye.jetpackstudy.gallery.Constant.Companion.FOOT_VIEW_STATUS
 import kotlinx.android.synthetic.main.gallery_cell.view.*
+import kotlinx.android.synthetic.main.gallery_footer.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -58,7 +63,8 @@ import kotlin.collections.ArrayList
  * 文件包名：com.xiayiye.jetpackstudy.gallery
  * 文件说明：
  */
-class GalleryAdapter : ListAdapter<PhotoItem, GalleryAdapter.MyViewHolder>(DifferentCallBack) {
+class GalleryAdapter(private val galleryViewModel: GalleryViewModel) :
+    ListAdapter<PhotoItem, GalleryAdapter.MyViewHolder>(DifferentCallBack) {
     companion object {
         const val NORMAL_VIEW_TYPE = 0
         const val FOOTER_VIEW_TYPE = 1
@@ -71,6 +77,12 @@ class GalleryAdapter : ListAdapter<PhotoItem, GalleryAdapter.MyViewHolder>(Diffe
                 .also {
                     //设置进度条占满整个屏幕宽度的方法
                     (it.layoutParams as StaggeredGridLayoutManager.LayoutParams).isFullSpan = true
+                    it.setOnClickListener { itemView ->
+                        //加载更多整个布局的点击事件
+                        itemView.progressBarLoadMore.visibility = View.VISIBLE
+                        itemView.tvLoading.text = "正在加载中……"
+                        galleryViewModel.fetchData()
+                    }
                     return MyViewHolder(it)
                 }
         }
@@ -118,6 +130,31 @@ class GalleryAdapter : ListAdapter<PhotoItem, GalleryAdapter.MyViewHolder>(Diffe
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         if (position == itemCount - 1) {
             //脚布局不加载下面的数据直接返回
+            with(holder.itemView) {
+                when (FOOT_VIEW_STATUS) {
+                    DATA_STATUS_CAN_LOAD_MORE -> {
+                        //正常加载中,显示加载更多的整个布局
+                        progressBarLoadMore.visibility = View.VISIBLE
+                        tvLoading.text = holder.itemView.context.getString(R.string.loading)
+                        //加载更多整个控件不可点击
+                        isClickable = false
+                    }
+                    DATA_STATUS_NO_MORE -> {
+                        //等于1 说明已加载完毕所有数据
+                        progressBarLoadMore.visibility = View.GONE
+                        tvLoading.text = "全部加载完毕！"
+                        //加载更多整个控件不可点击
+                        isClickable = false
+                    }
+                    DATA_STATUS_NETWORK_ERROR -> {
+                        //等于1 说明已加载完毕所有数据
+                        progressBarLoadMore.visibility = View.GONE
+                        tvLoading.text = "网络错误,点击重试！"
+                        //加载更多整个控件可以点击
+                        isClickable = true
+                    }
+                }
+            }
             return
         }
         //设置图片高度

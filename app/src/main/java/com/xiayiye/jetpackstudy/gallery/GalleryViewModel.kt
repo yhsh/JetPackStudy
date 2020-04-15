@@ -9,6 +9,9 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.google.gson.Gson
+import com.xiayiye.jetpackstudy.gallery.Constant.Companion.DATA_STATUS_CAN_LOAD_MORE
+import com.xiayiye.jetpackstudy.gallery.Constant.Companion.DATA_STATUS_NETWORK_ERROR
+import com.xiayiye.jetpackstudy.gallery.Constant.Companion.DATA_STATUS_NO_MORE
 import kotlin.math.ceil
 
 /*
@@ -50,13 +53,8 @@ import kotlin.math.ceil
  * 文件说明：
  */
 class GalleryViewModel(application: Application) : AndroidViewModel(application) {
-    companion object {
-        const val DATA_STATUS_CAN_LOAD_MORE = 0
-        const val DATA_STATUS_NO_MORE = 1
-        //网络错误的标识
-        const val DATA_STATUS_NETWORK_ERROR = 2
-    }
-
+    private var _dataStatusLive = MutableLiveData<Int>()
+    val dataStatusLive: LiveData<Int> get() = _dataStatusLive
     private val _photoListView = MutableLiveData<List<PhotoItem>>()
     val photoListView: LiveData<List<PhotoItem>> get() = _photoListView
     //是否需要滑动到顶部
@@ -91,9 +89,13 @@ class GalleryViewModel(application: Application) : AndroidViewModel(application)
         Log.e("打印网址", getUrl())
         //正在加载就不做任何操作
         if (isLoading) return
-        isLoading = true
         //所以数据加载完毕
-        if (currentPage > totalPage) return
+        if (currentPage > totalPage) {
+            //已加载完毕所有数据
+            _dataStatusLive.value = DATA_STATUS_NO_MORE
+            return
+        }
+        isLoading = true
         val stringRequest = StringRequest(Request.Method.GET, getUrl(), Response.Listener {
             with(Gson().fromJson(it, GalleryBean::class.java)) {
                 //设置搜索结果的总页数
@@ -105,11 +107,15 @@ class GalleryViewModel(application: Application) : AndroidViewModel(application)
                     _photoListView.value = arrayListOf(_photoListView.value!!, hits).flatten()
                 }
             }
+            //能加载更多的标识
+            _dataStatusLive.value = DATA_STATUS_CAN_LOAD_MORE
             isLoading = false
             isNewQuery = false
             currentPage++
         }, Response.ErrorListener {
             println(it.printStackTrace())
+            //记录错误的标识
+            _dataStatusLive.value = DATA_STATUS_NETWORK_ERROR
             isLoading = false
         })
         //添加到请求队列中
