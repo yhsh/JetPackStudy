@@ -17,6 +17,7 @@
             android:layout_margin="2dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/app_name"
+            android:scaleType="centerCrop"
             tools:srcCompat="@tools:sample/avatars" />
     </io.supercharge.shimmerlayout.ShimmerLayout>
 

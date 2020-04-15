@@ -46,6 +46,7 @@
     <string name="scale">scale</string>
     <string name="translate">translate</string>
     <string name="refresh_image">Refresh Image</string>
+    <string name="change_layout">Change Layout</string>
 
     <string-array name="study">
         <item>ViewModel学习</item>
@@ -62,8 +63,5 @@
         <item>综合案例(画廊Kotlin版)</item>
         <item>ViewPager2练习</item>
     </string-array>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.xiayiye.jetpackstudy.R
 import kotlinx.android.synthetic.main.fragment_gallery.*
@@ -15,6 +16,8 @@ import kotlinx.android.synthetic.main.fragment_gallery.*
  * 画廊加载显示图片页面
  */
 class GalleryFragment : Fragment() {
+    //切换图片布局的标识
+    private var isLin = false
     private lateinit var galleryViewModel: GalleryViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +38,17 @@ class GalleryFragment : Fragment() {
                 //显示刷新控件
                 swipeLayoutGallery.isRefreshing = true
                 galleryViewModel.fetchData()
+            }
+            //切换布局
+            R.id.changeLayout -> {
+                if (isLin) {
+                    recyclerViewGallery.layoutManager =
+                        StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+                } else {
+                    recyclerViewGallery.layoutManager =
+                        LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+                }
+                isLin = !isLin
             }
         }
         return super.onOptionsItemSelected(item)

@@ -41,12 +41,18 @@ import android.os.Parcelable
  * 文件包名：com.xiayiye.jetpackstudy.gallery
  * 文件说明：
  */
-data class PhotoItem(val id: Int, val largeImageURL: String?, val webformatURL: String?) :
+data class PhotoItem(
+    val id: Int,
+    val largeImageURL: String?,
+    val webformatURL: String?,
+    val webformatHeight: Int
+) :
     Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString(),
-        parcel.readString()
+        parcel.readString(),
+        parcel.readInt()
     ) {
     }
 
@@ -54,6 +60,7 @@ data class PhotoItem(val id: Int, val largeImageURL: String?, val webformatURL: 
         parcel.writeInt(id)
         parcel.writeString(largeImageURL)
         parcel.writeString(webformatURL)
+        parcel.writeInt(webformatHeight)
     }
 
     override fun describeContents(): Int {

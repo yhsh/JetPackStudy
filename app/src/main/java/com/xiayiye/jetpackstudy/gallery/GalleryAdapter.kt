@@ -101,6 +101,8 @@ class GalleryAdapter : ListAdapter<PhotoItem, GalleryAdapter.MyViewHolder>(Diffe
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        //设置图片高度
+        holder.itemView.ivShowGallery.layoutParams.height = getItem(position).webformatHeight
         holder.itemView.shimmerLayoutCell.apply {
             setShimmerColor(0x55ffffff)
             //闪动的角度
