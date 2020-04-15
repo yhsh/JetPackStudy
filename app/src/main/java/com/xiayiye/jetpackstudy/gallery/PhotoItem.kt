@@ -45,13 +45,19 @@ data class PhotoItem(
     val id: Int,
     val largeImageURL: String?,
     val webformatURL: String?,
-    val webformatHeight: Int
+    val webformatHeight: Int,
+    val user: String?,
+    val likes: Int,
+    val favorites: Int
 ) :
     Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString(),
         parcel.readString(),
+        parcel.readInt(),
+        parcel.readString(),
+        parcel.readInt(),
         parcel.readInt()
     ) {
     }
@@ -61,6 +67,9 @@ data class PhotoItem(
         parcel.writeString(largeImageURL)
         parcel.writeString(webformatURL)
         parcel.writeInt(webformatHeight)
+        parcel.writeString(user)
+        parcel.writeInt(likes)
+        parcel.writeInt(favorites)
     }
 
     override fun describeContents(): Int {

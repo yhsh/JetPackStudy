@@ -103,6 +103,9 @@ class GalleryAdapter : ListAdapter<PhotoItem, GalleryAdapter.MyViewHolder>(Diffe
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         //设置图片高度
         holder.itemView.ivShowGallery.layoutParams.height = getItem(position).webformatHeight
+        holder.itemView.tvDescribe.text = getItem(position).user
+        holder.itemView.tvLikes.text = getItem(position).likes.toString()
+        holder.itemView.tvFavorite.text = getItem(position).favorites.toString()
         holder.itemView.shimmerLayoutCell.apply {
             setShimmerColor(0x55ffffff)
             //闪动的角度
@@ -112,7 +115,7 @@ class GalleryAdapter : ListAdapter<PhotoItem, GalleryAdapter.MyViewHolder>(Diffe
         }
         //加载图片
         Glide.with(holder.itemView.context).load(getItem(position).webformatURL)
-            .placeholder(R.drawable.ic_photo_actual)
+            .placeholder(R.drawable.place_holder)
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
                     e: GlideException?, model: Any?,
