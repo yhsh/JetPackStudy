@@ -2,7 +2,9 @@ package com.xiayiye.jetpackstudy.gallery
 
 
 import android.Manifest
+import android.content.ContentValues
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -14,14 +16,19 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.xiayiye.jetpackstudy.R
 import kotlinx.android.synthetic.main.fragment_view_pager2_image.*
 import kotlinx.android.synthetic.main.pager_photo_view.view.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
- * A simple [Fragment] subclass.
+ * 显示轮播大图和保存图片的页面
  */
 const val REQUEST_WRITE_EXTERNAL_STORAGE_CODE = 1000
 
@@ -62,7 +69,7 @@ class ViewPager2ImageFragment : Fragment() {
                     REQUEST_WRITE_EXTERNAL_STORAGE_CODE
                 )
             } else {
-                saveImage()
+                viewLifecycleOwner.lifecycleScope.launch { saveImage29() }
             }
         }
     }
@@ -75,7 +82,7 @@ class ViewPager2ImageFragment : Fragment() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_WRITE_EXTERNAL_STORAGE_CODE && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             //权限申请成功可以保存图片
-            saveImage()
+            viewLifecycleOwner.lifecycleScope.launch { saveImage29() }
         }
     }
 
@@ -92,6 +99,42 @@ class ViewPager2ImageFragment : Fragment() {
         )
         if (insertImage.isNotEmpty()) {
             Toast.makeText(requireActivity(), "图片保存成功！-${insertImage}", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(requireActivity(), "图片保存失败！}", Toast.LENGTH_SHORT).show()
         }
     }
+
+    /**
+     * API29 中的最新保存图片到相册的方法
+     */
+    private suspend fun saveImage29() {
+        //开始一个新的进程执行保存图片的操作
+        withContext(Dispatchers.IO) {
+            val holder =
+                (vp2Banner[0] as RecyclerView).findViewHolderForAdapterPosition(vp2Banner.currentItem) as PagerPhotoListAdapter.PagerPhotoViewHolder
+            val toBitmap = holder.itemView.ivPagerView.drawable.toBitmap()
+            val insertUri = requireActivity().contentResolver.insert(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, ContentValues()
+            ) ?: kotlin.run {
+                showSaveToast("保存失败！")
+                return@withContext
+            }
+            //使用use可以自动关闭流
+            requireActivity().contentResolver.openOutputStream(insertUri).use {
+                if (toBitmap.compress(Bitmap.CompressFormat.JPEG, 90, it)) {
+                    showSaveToast("保存成功！")
+                } else {
+                    showSaveToast("保存失败！")
+                }
+            }
+        }
+    }
+
+    /**
+     * 显示保存图片结果的方法
+     */
+    private fun showSaveToast(showMsg: String) =
+        MainScope().launch {
+            Toast.makeText(requireActivity(), showMsg, Toast.LENGTH_SHORT).show()
+        }
 }
