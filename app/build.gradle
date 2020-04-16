@@ -24,9 +24,13 @@ android {
         }
     }
 
-//添加视图绑定支持
+    //添加视图绑定支持
     dataBinding {
         enabled = true
+    }
+    //设置Kotlin的 JVM 版本为1.8
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
 
@@ -54,4 +58,6 @@ dependencies {
     implementation 'com.github.chrisbanes.photoview:library:1.2.4'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'com.google.android.material:material:1.2.0-alpha06'
+    //paging分页库(Kotlin版本的库)
+    implementation 'androidx.paging:paging-runtime-ktx:2.1.2'
 }

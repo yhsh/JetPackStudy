@@ -63,6 +63,7 @@
         <item>NavigationBottom模板</item>
         <item>综合案例(画廊Kotlin版)</item>
         <item>ViewPager2练习</item>
+        <item>使用paging加载更多</item>
     </string-array>
 
 </resources>

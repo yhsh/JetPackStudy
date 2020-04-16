@@ -33,6 +33,7 @@
         <activity android:name=".bottomnavigation.BottomNavigationActivity" />
         <activity android:name=".gallery.GalleryActivity" />
         <activity android:name=".viewpager2.ViewPager2Activity" />
+        <activity android:name="com.xiayiye.jetpackstudy.paging.PagingLoadMoreActivity" />
     </application>
 
 </manifest>
