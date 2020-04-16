@@ -2,6 +2,7 @@ package com.xiayiye.jetpackstudy.viewmodel
 
 //import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.xiayiye.jetpackstudy.R
@@ -15,6 +16,10 @@ class ViewModelActivity : AppCompatActivity() {
         title = "ViewModel保存数据不丢失"
         setContentView(R.layout.activity_view_model)
         showViewModel = ViewModelProvider(this).get(ShowDataViewModel::class.java)
+
+        //获取ViewModel 的高级写法
+//        val myViewModel by viewModels<ShowDataViewModel>()
+
         //设置恢复的数据
         tvResult.text = showViewModel.number.toString()
         btAddOne.setOnClickListener {

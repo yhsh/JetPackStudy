@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -76,7 +77,15 @@ class GalleryAdapter(private val galleryViewModel: GalleryViewModel) :
             LayoutInflater.from(parent.context).inflate(R.layout.gallery_footer, parent, false)
                 .also {
                     //设置进度条占满整个屏幕宽度的方法
-                    (it.layoutParams as StaggeredGridLayoutManager.LayoutParams).isFullSpan = true
+                    if (it.layoutParams is StaggeredGridLayoutManager.LayoutParams) {
+                        println("打印布局1:${it.layoutParams}")
+                        (it.layoutParams as StaggeredGridLayoutManager.LayoutParams).isFullSpan =
+                            true
+                    } else {
+                        println("打印布局2:${it.layoutParams}")
+                        (it.layoutParams as RecyclerView.LayoutParams).width =
+                            RelativeLayout.LayoutParams.MATCH_PARENT
+                    }
                     it.setOnClickListener { itemView ->
                         //加载更多整个布局的点击事件
                         itemView.progressBarLoadMore.visibility = View.VISIBLE

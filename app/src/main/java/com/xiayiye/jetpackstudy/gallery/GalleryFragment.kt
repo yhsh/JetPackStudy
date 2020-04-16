@@ -45,13 +45,8 @@ class GalleryFragment : Fragment() {
             //切换布局
             R.id.changeLayout -> {
                 isLinearLayout = !isLinearLayout
-                if (isLinearLayout) {
-                    recyclerViewGallery.layoutManager =
-                        LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-                } else {
-                    recyclerViewGallery.layoutManager =
-                        StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-                }
+                //切换布局的方法
+                changeLayoutFun()
             }
         }
         return super.onOptionsItemSelected(item)
@@ -71,8 +66,7 @@ class GalleryFragment : Fragment() {
         val galleryAdapter = GalleryAdapter(galleryViewModel)
         recyclerViewGallery.apply {
             adapter = galleryAdapter
-            //瀑布流式风格的画廊
-            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            changeLayoutFun()
         }
         galleryViewModel.photoListView.observe(this, Observer {
             if (galleryViewModel.needToScrollerToTop) {
@@ -123,5 +117,18 @@ class GalleryFragment : Fragment() {
                 super.onScrollStateChanged(recyclerView, newState)
             }
         })
+    }
+
+    /**
+     * 切换布局的方法
+     */
+    private fun changeLayoutFun() {
+        if (isLinearLayout) {
+            recyclerViewGallery.layoutManager =
+                LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+        } else {
+            recyclerViewGallery.layoutManager =
+                StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        }
     }
 }
