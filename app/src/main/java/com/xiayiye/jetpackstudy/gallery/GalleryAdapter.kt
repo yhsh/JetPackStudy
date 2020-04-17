@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RelativeLayout
+import android.widget.LinearLayout
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -84,7 +84,7 @@ class GalleryAdapter(private val galleryViewModel: GalleryViewModel) :
                     } else {
                         println("打印布局2:${it.layoutParams}")
                         (it.layoutParams as RecyclerView.LayoutParams).width =
-                            RelativeLayout.LayoutParams.MATCH_PARENT
+                            LinearLayout.LayoutParams.MATCH_PARENT
                     }
                     it.setOnClickListener { itemView ->
                         //加载更多整个布局的点击事件

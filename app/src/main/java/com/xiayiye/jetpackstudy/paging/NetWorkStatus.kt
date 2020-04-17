@@ -40,6 +40,7 @@ package com.xiayiye.jetpackstudy.paging
  * 分别对应：加载中，加载失败，加载完成
  */
 enum class NetWorkStatus {
+    INITIAL_LOADING,
     LOADING,
     FAILED,
     COMPLETED

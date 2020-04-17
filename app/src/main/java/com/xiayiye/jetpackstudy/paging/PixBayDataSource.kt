@@ -63,12 +63,12 @@ class PixBayDataSource(private val context: Context) : PageKeyedDataSource<Int, 
     override fun loadInitial(
         params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, PhotoItem>
     ) {
-        _netWorkStatus.postValue(NetWorkStatus.LOADING)
+        //请求数据成功，清除之前保存的网络状态
+        retry = null
+        _netWorkStatus.postValue(NetWorkStatus.INITIAL_LOADING)
         StringRequest(Request.Method.GET,
             "https://pixabay.com/api/?key=16032344-bb89de8b100a3e01939c38139&q=$queryKey&per_page=50&page=1",
             Response.Listener {
-                //请求数据成功，清除之前保存的网络状态
-                retry = null
                 val dataList = Gson().fromJson<GalleryBean>(it, GalleryBean::class.java).hits
                 //添加数据
                 callback.onResult(dataList, null, 2)
@@ -86,13 +86,13 @@ class PixBayDataSource(private val context: Context) : PageKeyedDataSource<Int, 
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, PhotoItem>) {
+        //网络请求成功清除之前保存的错误网络状态
+        retry = null
         _netWorkStatus.postValue(NetWorkStatus.LOADING)
         StringRequest(
             Request.Method.GET,
             "https://pixabay.com/api/?key=16032344-bb89de8b100a3e01939c38139&q=$queryKey&per_page=$50&page=${params.key}",
             Response.Listener {
-                //网络请求成功清除之前奥村的错误网络状态
-                retry = null
                 val dataList = Gson().fromJson<GalleryBean>(it, GalleryBean::class.java).hits
                 callback.onResult(dataList, params.key + 1)
             },

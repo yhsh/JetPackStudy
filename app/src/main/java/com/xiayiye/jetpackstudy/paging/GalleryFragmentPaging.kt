@@ -4,7 +4,7 @@ package com.xiayiye.jetpackstudy.paging
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_gallery.*
  * 使用paging实现画廊加载更多
  */
 class GalleryFragmentPaging : Fragment() {
-    private val galleryViewModelPaging by viewModels<GalleryViewModelPaging>()
+    private val galleryViewModelPaging by activityViewModels<GalleryViewModelPaging>()
     //切换图片布局的标识
     private var isLin = false
 
@@ -63,7 +63,7 @@ class GalleryFragmentPaging : Fragment() {
         super.onActivityCreated(savedInstanceState)
         //设置有菜单选项
         setHasOptionsMenu(true)
-        val galleryAdapterPaging = GalleryAdapterPaging()
+        val galleryAdapterPaging = GalleryAdapterPaging(galleryViewModelPaging)
         recyclerViewGallery.apply {
             adapter = galleryAdapterPaging
             //瀑布流式风格的画廊
@@ -82,7 +82,10 @@ class GalleryFragmentPaging : Fragment() {
             galleryViewModelPaging.resetQuery()
         }
         //观察网络状态
-        galleryViewModelPaging.netWorkStatus.observe(viewLifecycleOwner, Observer { })
+        galleryViewModelPaging.netWorkStatus.observe(viewLifecycleOwner, Observer {
+            //更新网络状态
+            galleryAdapterPaging.updateNetworkStatus(it)
+        })
     }
 }
 
