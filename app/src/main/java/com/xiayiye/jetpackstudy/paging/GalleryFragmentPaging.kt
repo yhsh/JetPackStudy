@@ -28,7 +28,7 @@ class GalleryFragmentPaging : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.refresh_menu, menu)
+        inflater.inflate(R.menu.refresh_menu_retry, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -50,6 +50,10 @@ class GalleryFragmentPaging : Fragment() {
                         LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
                 }
                 isLin = !isLin
+            }
+            R.id.retryAgain -> {
+                //网络错误,重试
+                galleryViewModelPaging.retry()
             }
         }
         return super.onOptionsItemSelected(item)
@@ -77,6 +81,8 @@ class GalleryFragmentPaging : Fragment() {
             //刷新数据
             galleryViewModelPaging.resetQuery()
         }
+        //观察网络状态
+        galleryViewModelPaging.netWorkStatus.observe(viewLifecycleOwner, Observer { })
     }
 }
 

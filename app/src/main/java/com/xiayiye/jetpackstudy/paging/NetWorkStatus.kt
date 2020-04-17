@@ -1,10 +1,5 @@
 package com.xiayiye.jetpackstudy.paging
 
-import android.content.Context
-import androidx.lifecycle.MutableLiveData
-import androidx.paging.DataSource
-import com.xiayiye.jetpackstudy.gallery.PhotoItem
-
 /*
  * Copyright (c) 2020, smuyyh@gmail.com All Rights Reserved.
  * #                                                   #
@@ -34,20 +29,18 @@ import com.xiayiye.jetpackstudy.gallery.PhotoItem
 
 /**
  * @author 下一页5（轻飞扬）
- * 创建时间：2020/4/16 15:55
+ * 创建时间：2020/4/17 16:09
  * 个人小站：http://yhsh.wap.ai(已挂)
  * 最新小站：http://www.iyhsh.icoc.in
  * 联系作者：企鹅 13343401268
  * 博客地址：http://blog.csdn.net/xiayiye5
  * 项目名称：JetPackStudy
  * 文件包名：com.xiayiye.jetpackstudy.paging
- * 文件说明：paging的工厂继承类
+ * 文件说明：网络状态的枚举类
+ * 分别对应：加载中，加载失败，加载完成
  */
-class PixBayDataSourceFactory(private val context: Context) : DataSource.Factory<Int, PhotoItem>() {
-    private val _pixDataSource = MutableLiveData<PixBayDataSource>()
-    val pixDataSource = _pixDataSource
-    override fun create(): DataSource<Int, PhotoItem> {
-        //创建一个对象即可
-        return PixBayDataSource(context).also { pixDataSource.postValue(it) }
-    }
+enum class NetWorkStatus {
+    LOADING,
+    FAILED,
+    COMPLETED
 }

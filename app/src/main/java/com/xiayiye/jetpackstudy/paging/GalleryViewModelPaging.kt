@@ -2,6 +2,7 @@ package com.xiayiye.jetpackstudy.paging
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.Transformations
 import androidx.paging.toLiveData
 
 /*
@@ -43,6 +44,8 @@ import androidx.paging.toLiveData
  * 文件说明：
  */
 class GalleryViewModelPaging(application: Application) : AndroidViewModel(application) {
+    private val factory = PixBayDataSourceFactory(application)
+    val netWorkStatus = Transformations.switchMap(factory.pixDataSource) { it.netWorkStatus }
     /**
      * 刷新数据的方法
      */
@@ -51,5 +54,12 @@ class GalleryViewModelPaging(application: Application) : AndroidViewModel(applic
     }
 
     //每页的小大参数，这里写不写都可以，每页大小参数在url中控制和这里没有关系
-    val pageListLiveData = PixBayDataSourceFactory(application).toLiveData(10)
+    val pageListLiveData = factory.toLiveData(10)
+
+    /**
+     * 重试
+     */
+    fun retry() {
+        factory.pixDataSource.value?.retry?.invoke()
+    }
 }

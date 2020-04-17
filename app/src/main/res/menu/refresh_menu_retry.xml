@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/refreshImage"
+        android:title="@string/refresh_image" />
+    <item
+        android:id="@+id/changeLayout"
+        android:title="@string/change_layout" />
+    <item
+        android:id="@+id/retryAgain"
+        android:title="@string/retry_again" />
+</menu>

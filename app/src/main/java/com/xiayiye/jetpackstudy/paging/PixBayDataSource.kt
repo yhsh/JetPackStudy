@@ -1,6 +1,7 @@
 package com.xiayiye.jetpackstudy.paging
 
 import android.content.Context
+import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import com.android.volley.Request
 import com.android.volley.Response
@@ -49,6 +50,9 @@ import com.xiayiye.jetpackstudy.gallery.VolleySingleton
  * 文件说明：paging分页库
  */
 class PixBayDataSource(private val context: Context) : PageKeyedDataSource<Int, PhotoItem>() {
+    var retry: (() -> Any)? = null
+    private var _netWorkStatus = MutableLiveData<NetWorkStatus>()
+    var netWorkStatus = _netWorkStatus
     //搜索的关键字
     private val queryKey = arrayOf(
         "lotus", "car", "husky", "cat", "dog", "pet", "cloud", "fruit", "grape", "banana", "bamboo",
@@ -59,29 +63,55 @@ class PixBayDataSource(private val context: Context) : PageKeyedDataSource<Int, 
     override fun loadInitial(
         params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, PhotoItem>
     ) {
+        _netWorkStatus.postValue(NetWorkStatus.LOADING)
         StringRequest(Request.Method.GET,
             "https://pixabay.com/api/?key=16032344-bb89de8b100a3e01939c38139&q=$queryKey&per_page=50&page=1",
             Response.Listener {
+                //请求数据成功，清除之前保存的网络状态
+                retry = null
                 val dataList = Gson().fromJson<GalleryBean>(it, GalleryBean::class.java).hits
                 //添加数据
                 callback.onResult(dataList, null, 2)
             },
             Response.ErrorListener {
                 println("请求错误${it.printStackTrace()}")
+                //保存失败网络状态
+                retry = { loadInitial(params, callback) }
+                //加载失败的状态
+                _netWorkStatus.postValue(NetWorkStatus.FAILED)
             }
-        ).also { VolleySingleton.getInstance(context).requestQueue.add(it) }
+        ).also {
+            VolleySingleton.getInstance(context).requestQueue.add(it)
+        }
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, PhotoItem>) {
+        _netWorkStatus.postValue(NetWorkStatus.LOADING)
         StringRequest(
             Request.Method.GET,
             "https://pixabay.com/api/?key=16032344-bb89de8b100a3e01939c38139&q=$queryKey&per_page=$50&page=${params.key}",
             Response.Listener {
+                //网络请求成功清除之前奥村的错误网络状态
+                retry = null
                 val dataList = Gson().fromJson<GalleryBean>(it, GalleryBean::class.java).hits
                 callback.onResult(dataList, params.key + 1)
             },
-            Response.ErrorListener { println("加载更多错误${it.printStackTrace()}") }
-        ).also { VolleySingleton.getInstance(context).requestQueue.add(it) }
+            Response.ErrorListener {
+                //下面是所有数据加载完成的标识
+                if (it.toString() == "com.android.volley.ClientError") {
+                    //将标识设置为加载完成
+                    _netWorkStatus.postValue(NetWorkStatus.COMPLETED)
+                } else {
+                    //保存加载失败的网络状态
+                    retry = { loadAfter(params, callback) }
+                    //加载失败的状态
+                    _netWorkStatus.postValue(NetWorkStatus.FAILED)
+                }
+                println("加载更多错误$it")
+            }
+        ).also {
+            VolleySingleton.getInstance(context).requestQueue.add(it)
+        }
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, PhotoItem>) {
