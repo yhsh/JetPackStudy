@@ -21,7 +21,6 @@ import com.xiayiye.jetpackstudy.gallery.PhotoItem
 import kotlinx.android.synthetic.main.gallery_cell.view.*
 import kotlinx.android.synthetic.main.gallery_footer_paging.view.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 /*
  * Copyright (c) 2020, smuyyh@gmail.com All Rights Reserved.
@@ -126,10 +125,10 @@ class GalleryAdapterPaging(private val galleryViewModelPaging: GalleryViewModelP
                                 putParcelable("photo", getItem(photoHolder.adapterPosition))
                             } else {
                                 //将整个数据列表传递过去
-                                putParcelableArrayList("photo_list", ArrayList(currentList!!))
+//                                putParcelableArrayList("photo_list", ArrayList(currentList!!)) 不需要传递了，使用的共享ViewModel数据了
                                 //当前点击的位置传递过去
                                 putInt("photo_position", photoHolder.adapterPosition)
-                                jumpPage = R.id.action_galleryFragment_to_viewPager2ImageFragment
+                                jumpPage = R.id.action_galleryFragment_to_pagePhotoPagingFragment
                             }
                             photoHolder.itemView.findNavController()
                                 .navigate(jumpPage, this)

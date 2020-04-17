@@ -73,8 +73,6 @@ class GalleryFragmentPaging : Fragment() {
             viewLifecycleOwner,
             Observer {
                 galleryAdapterPaging.submitList(it)
-                //加载完成关闭刷新图标
-                swipeLayoutGallery.isRefreshing = false
             })
         //下拉刷新
         swipeLayoutGallery.setOnRefreshListener {
@@ -85,6 +83,8 @@ class GalleryFragmentPaging : Fragment() {
         galleryViewModelPaging.netWorkStatus.observe(viewLifecycleOwner, Observer {
             //更新网络状态
             galleryAdapterPaging.updateNetworkStatus(it)
+            //网络状态改变后才关闭刷新图标
+            swipeLayoutGallery.isRefreshing = it == NetWorkStatus.INITIAL_LOADING
         })
     }
 }

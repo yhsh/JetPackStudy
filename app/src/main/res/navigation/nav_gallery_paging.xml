@@ -14,7 +14,7 @@
             android:id="@+id/action_galleryFragment_to_photoFragment"
             app:destination="@id/photoFragment" />
         <action
-            android:id="@+id/action_galleryFragment_to_viewPager2ImageFragment"
+            android:id="@+id/action_galleryFragment_to_pagePhotoPagingFragment"
             app:destination="@id/viewPager2ImageFragment" />
     </fragment>
 
@@ -26,7 +26,7 @@
 
     <fragment
         android:id="@+id/viewPager2ImageFragment"
-        android:name="com.xiayiye.jetpackstudy.gallery.ViewPager2ImageFragment"
-        android:label="轮播大图浏览"
+        android:name="com.xiayiye.jetpackstudy.paging.PagePhotoPagingFragment"
+        android:label="ViewModel共享数据实现轮播"
         tools:layout="@layout/fragment_view_pager2_image" />
 </navigation>

@@ -42,6 +42,7 @@ package com.xiayiye.jetpackstudy.paging
 enum class NetWorkStatus {
     INITIAL_LOADING,
     LOADING,
+    LOADED,
     FAILED,
     COMPLETED
 }

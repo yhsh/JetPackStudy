@@ -72,6 +72,8 @@ class PixBayDataSource(private val context: Context) : PageKeyedDataSource<Int, 
                 val dataList = Gson().fromJson<GalleryBean>(it, GalleryBean::class.java).hits
                 //添加数据
                 callback.onResult(dataList, null, 2)
+                //加载成功设置成功的状态标识
+                _netWorkStatus.postValue(NetWorkStatus.LOADED)
             },
             Response.ErrorListener {
                 println("请求错误${it.printStackTrace()}")
@@ -95,6 +97,8 @@ class PixBayDataSource(private val context: Context) : PageKeyedDataSource<Int, 
             Response.Listener {
                 val dataList = Gson().fromJson<GalleryBean>(it, GalleryBean::class.java).hits
                 callback.onResult(dataList, params.key + 1)
+                //加载成功设置成功的状态标识
+                _netWorkStatus.postValue(NetWorkStatus.LOADED)
             },
             Response.ErrorListener {
                 //下面是所有数据加载完成的标识
