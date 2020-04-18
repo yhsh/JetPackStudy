@@ -6,7 +6,26 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+static def getNowTime() {
+//    return new SimpleDateFormat("yyyy-MM-dd HH_mm_ss_SSS",Locale.CHINA).format(new Date())
+    return new Date().format("yyyy-MM-dd HH_mm_ss_SSS", TimeZone.getTimeZone("GMT+8"))
+}
+
 android {
+    signingConfigs {
+        debug {
+            storeFile file('..\\jetpack.jks')
+            storePassword '123456'
+            keyAlias = 'jetpack'
+            keyPassword '123456'
+        }
+        release {
+            storeFile file('..\\jetpack.jks')
+            storePassword '123456'
+            keyAlias = 'jetpack'
+            keyPassword '123456'
+        }
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
@@ -16,6 +35,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.debug
     }
     buildTypes {
         release {
@@ -31,6 +51,12 @@ android {
     //设置Kotlin的 JVM 版本为1.8
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    //重命名APK的方法
+    applicationVariants.all { JetPack ->
+        JetPack.outputs.all {
+            outputFileName = "JetPack_v${defaultConfig.versionName}_c${defaultConfig.versionCode}_t${getNowTime()}_${JetPack.name}.apk"
+        }
     }
 }
 

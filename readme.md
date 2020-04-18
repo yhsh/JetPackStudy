@@ -2,10 +2,11 @@
 
 
 ### -包含如下：
-1.数据管理 -> ViewModel
-2.视图通知 -> LiveData
-3.数据绑定 -> DataBinding
-4.导航组件 -> Navigation
+1.数据管理 -> ViewModel<br>
+2.视图通知 -> LiveData<br>
+3.数据绑定 -> DataBinding<br>
+4.导航组件 -> Navigation<br>
+5.分 页 库 -> Paging<br>
   ………………
 
 
