@@ -36,6 +36,9 @@
         <activity android:name=".viewpager2.ViewPager2Activity" />
         <activity android:name=".paging.PagingLoadMoreActivity" />
         <activity android:name=".workmanager.WorkManagerActivity" />
+        <activity
+            android:name=".navigationdrawer.NavigationDrawerActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
     </application>
 
 </manifest>

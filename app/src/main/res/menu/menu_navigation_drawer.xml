@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/groupOne"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/textFragment"
+            android:icon="@drawable/ic_looks_one_black_50dp"
+            android:title="@string/fragment_text" />
+    </group>
+    <group
+        android:id="@+id/groupTwo"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/pagerFragment"
+            android:icon="@drawable/ic_looks_two_black_50dp"
+            android:title="@string/fragment_pager" />
+    </group>
+    <group
+        android:id="@+id/groupThree"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/listFragment"
+            android:icon="@drawable/ic_looks_three_black_50dp"
+            android:title="@string/fragment_list" />
+    </group>
+</menu>

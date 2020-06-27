@@ -8,11 +8,12 @@ import com.xiayiye.jetpackstudy.bottomnavigation.BottomNavigationActivity
 import com.xiayiye.jetpackstudy.calculation.CalculationHomeActivity
 import com.xiayiye.jetpackstudy.databinding.DataBindingActivity
 import com.xiayiye.jetpackstudy.gallery.GalleryActivity
-import com.xiayiye.jetpackstudy.paging.PagingLoadMoreActivity
 import com.xiayiye.jetpackstudy.lifecycle.LifecycleTimeActivity
 import com.xiayiye.jetpackstudy.livedata.LiveDataActivity
 import com.xiayiye.jetpackstudy.navigation.NavigationActivity
 import com.xiayiye.jetpackstudy.navigation.viewmodel.NavigationViewModelActivity
+import com.xiayiye.jetpackstudy.navigationdrawer.NavigationDrawerActivity
+import com.xiayiye.jetpackstudy.paging.PagingLoadMoreActivity
 import com.xiayiye.jetpackstudy.savestate.SaveStateActivity
 import com.xiayiye.jetpackstudy.savestatejava.SaveStateJavaActivity
 import com.xiayiye.jetpackstudy.viewmodel.ViewModelActivity
@@ -45,6 +46,7 @@ class MainActivity : AppCompatActivity() {
             12 -> goToPage(ViewPager2Activity::class.java)
             13 -> goToPage(PagingLoadMoreActivity::class.java)
             14 -> goToPage(WorkManagerActivity::class.java)
+            15 -> goToPage(NavigationDrawerActivity::class.java)
         }
     }
 

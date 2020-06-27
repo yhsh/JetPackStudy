@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_navigation_drawer"
+    app:startDestination="@id/textFragment">
+
+    <fragment
+        android:id="@+id/textFragment"
+        android:name="com.xiayiye.jetpackstudy.navigationdrawer.TextFragment"
+        android:label="@string/fragment_text"
+        tools:layout="@layout/fragment_text" />
+    <fragment
+        android:id="@+id/pagerFragment"
+        android:name="com.xiayiye.jetpackstudy.navigationdrawer.PagerFragment"
+        android:label="@string/fragment_pager"
+        tools:layout="@layout/fragment_pager" />
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.xiayiye.jetpackstudy.navigationdrawer.ListFragment"
+        android:label="@string/fragment_list"
+        tools:layout="@layout/fragment_list" />
+</navigation>
