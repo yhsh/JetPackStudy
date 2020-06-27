@@ -17,6 +17,7 @@ import com.xiayiye.jetpackstudy.savestate.SaveStateActivity
 import com.xiayiye.jetpackstudy.savestatejava.SaveStateJavaActivity
 import com.xiayiye.jetpackstudy.viewmodel.ViewModelActivity
 import com.xiayiye.jetpackstudy.viewpager2.ViewPager2Activity
+import com.xiayiye.jetpackstudy.workmanager.WorkManagerActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -43,6 +44,7 @@ class MainActivity : AppCompatActivity() {
             11 -> goToPage(GalleryActivity::class.java)
             12 -> goToPage(ViewPager2Activity::class.java)
             13 -> goToPage(PagingLoadMoreActivity::class.java)
+            14 -> goToPage(WorkManagerActivity::class.java)
         }
     }
 

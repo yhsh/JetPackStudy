@@ -29,12 +29,14 @@ class WinFragment : Fragment() {
             requireActivity(),
             SavedStateViewModelFactory(requireActivity().application, requireActivity())
         ).get(CalculationViewModel::class.java)
-        val fragmentWinBinding = DataBindingUtil.inflate<FragmentWinBinding>(
+        /*val fragmentWinBinding = DataBindingUtil.inflate<FragmentWinBinding>(
             inflater,
             R.layout.fragment_win,
             container,
             false
-        )
+        )*/
+        //写法二：
+        val fragmentWinBinding = FragmentWinBinding.inflate(inflater, container, false)
         fragmentWinBinding.calculationData = calculationViewModel
         fragmentWinBinding.lifecycleOwner = requireActivity()
         fragmentWinBinding.btWinBackHome.setOnClickListener {

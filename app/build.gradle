@@ -86,4 +86,6 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.0-alpha06'
     //paging分页库(Kotlin版本的库)
     implementation 'androidx.paging:paging-runtime-ktx:2.1.2'
+    //添加 WorkManager 的库Kotlin版本
+    implementation 'androidx.work:work-runtime-ktx:2.4.0-rc01'
 }
